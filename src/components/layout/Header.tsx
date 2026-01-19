@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Heart } from "lucide-react";
+import { Menu, X, Heart, Globe } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const navigation = [
   { name: "الرئيسية", nameEn: "Home", href: "/" },
@@ -17,6 +18,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { language, toggleLanguage, t, isRTL } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,7 +35,7 @@ export function Header() {
           ? "bg-card/95 backdrop-blur-md shadow-heritage py-2"
           : "bg-transparent py-4"
       }`}
-      dir="rtl"
+      dir={isRTL ? "rtl" : "ltr"}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
@@ -43,8 +45,12 @@ export function Header() {
               <span className="text-primary-foreground font-bold text-xl">بت</span>
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-lg font-bold text-foreground">بيت تراث العرب</h1>
-              <p className="text-xs text-muted-foreground">Arab Heritage House</p>
+              <h1 className="text-lg font-bold text-foreground">
+                {t("بيت تراث العرب", "Arab Heritage House")}
+              </h1>
+              <p className="text-xs text-muted-foreground">
+                {t("Arab Heritage House", "بيت تراث العرب")}
+              </p>
             </div>
           </Link>
 
@@ -60,32 +66,57 @@ export function Header() {
                     : "text-foreground hover:bg-muted"
                 }`}
               >
-                {item.name}
+                {language === "ar" ? item.name : item.nameEn}
               </Link>
             ))}
           </nav>
 
-          {/* CTA Button */}
+          {/* CTA Button & Language Toggle */}
           <div className="hidden lg:flex items-center gap-3">
+            {/* Language Toggle */}
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={toggleLanguage}
+              className="rounded-full"
+              aria-label={t("تغيير اللغة", "Change language")}
+            >
+              <Globe className="w-4 h-4" />
+            </Button>
+            <span className="text-sm font-medium text-muted-foreground">
+              {language === "ar" ? "EN" : "ع"}
+            </span>
+            
             <Button variant="gold" size="lg" asChild>
               <Link to="/donate">
                 <Heart className="w-4 h-4" />
-                تبرع الآن
+                {t("تبرع الآن", "Donate Now")}
               </Link>
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? (
-              <X className="w-6 h-6 text-foreground" />
-            ) : (
-              <Menu className="w-6 h-6 text-foreground" />
-            )}
-          </button>
+          <div className="lg:hidden flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleLanguage}
+              className="rounded-full"
+              aria-label={t("تغيير اللغة", "Change language")}
+            >
+              <Globe className="w-5 h-5" />
+            </Button>
+            <button
+              className="p-2 rounded-lg hover:bg-muted transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6 text-foreground" />
+              ) : (
+                <Menu className="w-6 h-6 text-foreground" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -103,13 +134,13 @@ export function Header() {
                       : "text-foreground hover:bg-muted"
                   }`}
                 >
-                  {item.name}
+                  {language === "ar" ? item.name : item.nameEn}
                 </Link>
               ))}
               <Button variant="gold" size="lg" className="mt-2" asChild>
                 <Link to="/donate">
                   <Heart className="w-4 h-4" />
-                  تبرع الآن
+                  {t("تبرع الآن", "Donate Now")}
                 </Link>
               </Button>
             </div>

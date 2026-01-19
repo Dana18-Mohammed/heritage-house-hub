@@ -2,15 +2,25 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Heart, Play } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function HeroSection() {
+  const { t, isRTL } = useLanguage();
+
+  const stats = [
+    { value: "10,000+", labelAr: "مستفيد", labelEn: "Beneficiaries" },
+    { value: "15+", labelAr: "مشروع", labelEn: "Projects" },
+    { value: "50+", labelAr: "متطوع", labelEn: "Volunteers" },
+    { value: "5", labelAr: "سنوات خدمة", labelEn: "Years" },
+  ];
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
           src={heroImage}
-          alt="مشروع فرن الخير"
+          alt={t("مشروع فرن الخير", "Bread of Goodness Project")}
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/60 to-primary/90" />
@@ -18,25 +28,30 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 py-32 text-center" dir="rtl">
+      <div className="relative z-10 container mx-auto px-4 py-32 text-center" dir={isRTL ? "rtl" : "ltr"}>
         <div className="max-w-4xl mx-auto space-y-8">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-heritage-gold/20 backdrop-blur-sm px-4 py-2 rounded-full animate-fade-up">
             <span className="w-2 h-2 bg-heritage-gold rounded-full animate-pulse" />
-            <span className="text-heritage-gold text-sm font-medium">مؤسسة ثقافية وإنسانية</span>
+            <span className="text-heritage-gold text-sm font-medium">
+              {t("مؤسسة ثقافية وإنسانية", "Cultural & Humanitarian Foundation")}
+            </span>
           </div>
 
           {/* Main Title */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-tight animate-fade-up animation-delay-200">
-            معاً نبني{" "}
-            <span className="text-heritage-gold">مستقبلاً</span>
+            {t("معاً نبني", "Together We Build")}{" "}
+            <span className="text-heritage-gold">{t("مستقبلاً", "a Better")}</span>
             <br />
-            أفضل للجميع
+            {t("أفضل للجميع", "Future for All")}
           </h1>
 
           {/* Subtitle */}
           <p className="text-lg sm:text-xl text-primary-foreground/80 max-w-2xl mx-auto leading-relaxed animate-fade-up animation-delay-400">
-            نسعى في بيت تراث العرب لتقديم يد العون للمحتاجين والأيتام من خلال مشاريع إنسانية مستدامة تحقق الأثر الإيجابي في المجتمع
+            {t(
+              "نسعى في بيت تراث العرب لتقديم يد العون للمحتاجين والأيتام من خلال مشاريع إنسانية مستدامة تحقق الأثر الإيجابي في المجتمع",
+              "At Arab Heritage House, we strive to extend a helping hand to those in need and orphans through sustainable humanitarian projects that create a positive impact in the community"
+            )}
           </p>
 
           {/* CTA Buttons */}
@@ -44,25 +59,20 @@ export function HeroSection() {
             <Button variant="hero-primary" size="xl" asChild>
               <Link to="/donate">
                 <Heart className="w-5 h-5" />
-                تبرع الآن
+                {t("تبرع الآن", "Donate Now")}
               </Link>
             </Button>
             <Button variant="hero-secondary" size="xl" asChild>
               <Link to="/projects">
                 <Play className="w-5 h-5" />
-                استكشف مشاريعنا
+                {t("استكشف مشاريعنا", "Explore Our Projects")}
               </Link>
             </Button>
           </div>
 
           {/* Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-12 animate-fade-up animation-delay-600">
-            {[
-              { value: "10,000+", label: "مستفيد" },
-              { value: "15+", label: "مشروع" },
-              { value: "50+", label: "متطوع" },
-              { value: "5", label: "سنوات خدمة" },
-            ].map((stat, index) => (
+            {stats.map((stat, index) => (
               <div
                 key={index}
                 className="text-center p-4 rounded-xl bg-primary-foreground/5 backdrop-blur-sm border border-primary-foreground/10"
@@ -71,7 +81,7 @@ export function HeroSection() {
                   {stat.value}
                 </div>
                 <div className="text-sm text-primary-foreground/70 mt-1">
-                  {stat.label}
+                  {t(stat.labelAr, stat.labelEn)}
                 </div>
               </div>
             ))}
