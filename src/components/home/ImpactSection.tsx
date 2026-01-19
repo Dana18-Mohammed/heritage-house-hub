@@ -1,58 +1,77 @@
 import { Users, Heart, Utensils, GraduationCap, Home, Gift } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const stats = [
   {
     icon: Users,
     value: "10,000+",
-    label: "مستفيد",
-    description: "من مختلف المناطق",
+    labelAr: "مستفيد",
+    labelEn: "Beneficiaries",
+    descAr: "من مختلف المناطق",
+    descEn: "From various regions",
   },
   {
     icon: Utensils,
     value: "500,000+",
-    label: "وجبة",
-    description: "تم توزيعها",
+    labelAr: "وجبة",
+    labelEn: "Meals",
+    descAr: "تم توزيعها",
+    descEn: "Distributed",
   },
   {
     icon: Heart,
     value: "300+",
-    label: "يتيم مكفول",
-    description: "في رعايتنا",
+    labelAr: "يتيم مكفول",
+    labelEn: "Sponsored Orphans",
+    descAr: "في رعايتنا",
+    descEn: "Under our care",
   },
   {
     icon: GraduationCap,
     value: "150+",
-    label: "منحة دراسية",
-    description: "تم تقديمها",
+    labelAr: "منحة دراسية",
+    labelEn: "Scholarships",
+    descAr: "تم تقديمها",
+    descEn: "Provided",
   },
   {
     icon: Home,
     value: "2,000+",
-    label: "أسرة",
-    description: "نخدمها شهرياً",
+    labelAr: "أسرة",
+    labelEn: "Families",
+    descAr: "نخدمها شهرياً",
+    descEn: "Served monthly",
   },
   {
     icon: Gift,
     value: "15+",
-    label: "مشروع",
-    description: "قيد التنفيذ",
+    labelAr: "مشروع",
+    labelEn: "Projects",
+    descAr: "قيد التنفيذ",
+    descEn: "In progress",
   },
 ];
 
 export function ImpactSection() {
+  const { t, isRTL } = useLanguage();
+
   return (
-    <section className="py-24 bg-background" dir="rtl">
+    <section className="py-24 bg-background" dir={isRTL ? "rtl" : "ltr"}>
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary text-sm font-semibold rounded-full">
-            أثرنا
+            {t("أثرنا", "Our Impact")}
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-            أرقام تحكي <span className="text-heritage-gold">قصص نجاح</span>
+            {t("أرقام تحكي", "Numbers That Tell")}{" "}
+            <span className="text-heritage-gold">{t("قصص نجاح", "Success Stories")}</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            بفضل الله ثم بدعمكم، استطعنا تحقيق هذه الإنجازات
+            {t(
+              "بفضل الله ثم بدعمكم، استطعنا تحقيق هذه الإنجازات",
+              "By the grace of God and your support, we achieved these accomplishments"
+            )}
           </p>
         </div>
 
@@ -71,10 +90,10 @@ export function ImpactSection() {
                 {stat.value}
               </div>
               <div className="text-sm font-semibold text-foreground mb-1">
-                {stat.label}
+                {t(stat.labelAr, stat.labelEn)}
               </div>
               <div className="text-xs text-muted-foreground">
-                {stat.description}
+                {t(stat.descAr, stat.descEn)}
               </div>
             </div>
           ))}

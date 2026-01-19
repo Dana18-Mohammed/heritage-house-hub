@@ -1,18 +1,19 @@
 import { Link } from "react-router-dom";
 import { Heart, Phone, Mail, MapPin, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const quickLinks = [
-  { name: "الرئيسية", href: "/" },
-  { name: "من نحن", href: "/about" },
-  { name: "مشاريعنا", href: "/projects" },
-  { name: "تبرع الآن", href: "/donate" },
+  { name: "الرئيسية", nameEn: "Home", href: "/" },
+  { name: "من نحن", nameEn: "About Us", href: "/about" },
+  { name: "مشاريعنا", nameEn: "Projects", href: "/projects" },
+  { name: "تبرع الآن", nameEn: "Donate Now", href: "/donate" },
 ];
 
 const projectLinks = [
-  { name: "فرن الخير", href: "/projects#bakery" },
-  { name: "تكية الطعام", href: "/projects#kitchen" },
-  { name: "كفالة الأيتام", href: "/projects#orphans" },
-  { name: "المنح الدراسية", href: "/projects#education" },
+  { name: "فرن الخير", nameEn: "Bread of Goodness", href: "/projects#bakery" },
+  { name: "تكية الطعام", nameEn: "Community Kitchen", href: "/projects#kitchen" },
+  { name: "كفالة الأيتام", nameEn: "Orphan Sponsorship", href: "/projects#orphans" },
+  { name: "المنح الدراسية", nameEn: "Scholarships", href: "/projects#education" },
 ];
 
 const socialLinks = [
@@ -23,8 +24,10 @@ const socialLinks = [
 ];
 
 export function Footer() {
+  const { t, language, isRTL } = useLanguage();
+
   return (
-    <footer className="bg-primary text-primary-foreground" dir="rtl">
+    <footer className="bg-primary text-primary-foreground" dir={isRTL ? "rtl" : "ltr"}>
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -35,12 +38,15 @@ export function Footer() {
                 <span className="text-foreground font-bold text-xl">بت</span>
               </div>
               <div>
-                <h3 className="text-lg font-bold">بيت تراث العرب</h3>
-                <p className="text-xs text-primary-foreground/70">Arab Heritage House</p>
+                <h3 className="text-lg font-bold">{t("بيت تراث العرب", "Arab Heritage House")}</h3>
+                <p className="text-xs text-primary-foreground/70">{t("Arab Heritage House", "بيت تراث العرب")}</p>
               </div>
             </div>
             <p className="text-primary-foreground/80 text-sm leading-relaxed">
-              مؤسسة ثقافية وإنسانية تسعى لخدمة المجتمع من خلال مشاريع خيرية متنوعة تلبي احتياجات الأسر المحتاجة والأيتام.
+              {t(
+                "مؤسسة ثقافية وإنسانية تسعى لخدمة المجتمع من خلال مشاريع خيرية متنوعة تلبي احتياجات الأسر المحتاجة والأيتام.",
+                "A cultural and humanitarian organization striving to serve the community through various charitable projects that meet the needs of families in need and orphans."
+              )}
             </p>
             <div className="flex gap-3">
               {socialLinks.map((social) => (
@@ -58,15 +64,15 @@ export function Footer() {
 
           {/* Quick Links */}
           <div className="space-y-6">
-            <h3 className="text-lg font-bold">روابط سريعة</h3>
+            <h3 className="text-lg font-bold">{t("روابط سريعة", "Quick Links")}</h3>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
-                <li key={link.name}>
+                <li key={link.nameEn}>
                   <Link
                     to={link.href}
                     className="text-primary-foreground/80 hover:text-heritage-gold transition-colors text-sm"
                   >
-                    {link.name}
+                    {language === "ar" ? link.name : link.nameEn}
                   </Link>
                 </li>
               ))}
@@ -75,15 +81,15 @@ export function Footer() {
 
           {/* Projects */}
           <div className="space-y-6">
-            <h3 className="text-lg font-bold">مشاريعنا</h3>
+            <h3 className="text-lg font-bold">{t("مشاريعنا", "Our Projects")}</h3>
             <ul className="space-y-3">
               {projectLinks.map((link) => (
-                <li key={link.name}>
+                <li key={link.nameEn}>
                   <Link
                     to={link.href}
                     className="text-primary-foreground/80 hover:text-heritage-gold transition-colors text-sm"
                   >
-                    {link.name}
+                    {language === "ar" ? link.name : link.nameEn}
                   </Link>
                 </li>
               ))}
@@ -92,12 +98,12 @@ export function Footer() {
 
           {/* Contact Info */}
           <div className="space-y-6">
-            <h3 className="text-lg font-bold">تواصل معنا</h3>
+            <h3 className="text-lg font-bold">{t("تواصل معنا", "Contact Us")}</h3>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-heritage-gold flex-shrink-0 mt-0.5" />
                 <span className="text-primary-foreground/80 text-sm">
-                  المملكة العربية السعودية
+                  {t("المملكة العربية السعودية", "Saudi Arabia")}
                 </span>
               </li>
               <li className="flex items-center gap-3">
@@ -129,12 +135,12 @@ export function Footer() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-primary-foreground/60 text-sm">
-              © {new Date().getFullYear()} بيت تراث العرب. جميع الحقوق محفوظة.
+              © {new Date().getFullYear()} {t("بيت تراث العرب. جميع الحقوق محفوظة.", "Arab Heritage House. All rights reserved.")}
             </p>
             <div className="flex items-center gap-2 text-primary-foreground/60 text-sm">
-              <span>صُنع بـ</span>
+              <span>{t("صُنع بـ", "Made with")}</span>
               <Heart className="w-4 h-4 text-heritage-gold fill-current" />
-              <span>لخدمة المجتمع</span>
+              <span>{t("لخدمة المجتمع", "to serve the community")}</span>
             </div>
           </div>
         </div>

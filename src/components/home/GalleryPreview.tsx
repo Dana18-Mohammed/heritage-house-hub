@@ -1,36 +1,41 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import projectBakery from "@/assets/project-bakery.jpg";
 import projectKitchen from "@/assets/project-kitchen.jpg";
 import projectEducation from "@/assets/project-education.jpg";
 import projectOrphans from "@/assets/project-orphans.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const galleryImages = [
-  { src: projectBakery, alt: "فرن الخير", category: "مشاريع" },
-  { src: projectKitchen, alt: "تكية الطعام", category: "نشاطات" },
-  { src: projectEducation, alt: "التعليم", category: "تعليم" },
-  { src: projectOrphans, alt: "كفالة الأيتام", category: "أيتام" },
+  { src: projectBakery, altAr: "فرن الخير", altEn: "Bread of Goodness", categoryAr: "مشاريع", categoryEn: "Projects" },
+  { src: projectKitchen, altAr: "تكية الطعام", altEn: "Community Kitchen", categoryAr: "نشاطات", categoryEn: "Activities" },
+  { src: projectEducation, altAr: "التعليم", altEn: "Education", categoryAr: "تعليم", categoryEn: "Education" },
+  { src: projectOrphans, altAr: "كفالة الأيتام", altEn: "Orphan Sponsorship", categoryAr: "أيتام", categoryEn: "Orphans" },
 ];
 
 export function GalleryPreview() {
+  const { t, isRTL, language } = useLanguage();
+  const Arrow = isRTL ? ArrowLeft : ArrowRight;
+
   return (
-    <section className="py-24 bg-muted/30" dir="rtl">
+    <section className="py-24 bg-muted/30" dir={isRTL ? "rtl" : "ltr"}>
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-12">
           <div className="space-y-2">
             <span className="inline-block px-4 py-1.5 bg-heritage-gold/10 text-heritage-gold text-sm font-semibold rounded-full">
-              معرض الصور
+              {t("معرض الصور", "Photo Gallery")}
             </span>
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              لحظات من <span className="text-heritage-gold">العطاء</span>
+              {t("لحظات من", "Moments of")}{" "}
+              <span className="text-heritage-gold">{t("العطاء", "Giving")}</span>
             </h2>
           </div>
           <Button variant="heritage-outline" asChild>
             <Link to="/gallery">
-              عرض المعرض كاملاً
-              <ArrowLeft className="w-4 h-4 mr-2" />
+              {t("عرض المعرض كاملاً", "View Full Gallery")}
+              <Arrow className={`w-4 h-4 ${isRTL ? "mr-2" : "ml-2"}`} />
             </Link>
           </Button>
         </div>
@@ -45,15 +50,17 @@ export function GalleryPreview() {
             >
               <img
                 src={image.src}
-                alt={image.alt}
+                alt={language === "ar" ? image.altAr : image.altEn}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                 <span className="inline-block px-2 py-1 bg-heritage-gold text-foreground text-xs font-semibold rounded-full mb-2">
-                  {image.category}
+                  {language === "ar" ? image.categoryAr : image.categoryEn}
                 </span>
-                <p className="text-primary-foreground font-semibold">{image.alt}</p>
+                <p className="text-primary-foreground font-semibold">
+                  {language === "ar" ? image.altAr : image.altEn}
+                </p>
               </div>
             </div>
           ))}
