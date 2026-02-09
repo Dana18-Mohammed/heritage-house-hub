@@ -49,7 +49,7 @@ export function HeroSection() {
           {/* Subtitle */}
           <p className="text-lg sm:text-xl text-primary-foreground/80 max-w-2xl mx-auto leading-relaxed animate-fade-up animation-delay-400">
             {t(
-              "نسعى في بيت الثقافة العربية لتقديم يد العون للمحتاجين والأيتام من خلال مشاريع إنسانية مستدامة تحقق الأثر الإيجابي في المجتمع",
+              "نسعى في بيت تراث العرب لتقديم يد العون للمحتاجين والأيتام من خلال مشاريع إنسانية مستدامة تحقق الأثر الإيجابي في المجتمع",
               "At Arab Cultural House, we strive to extend a helping hand to those in need and orphans through sustainable humanitarian projects that create a positive impact in the community"
             )}
           </p>
