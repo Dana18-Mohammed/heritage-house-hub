@@ -48,7 +48,7 @@ export function Header() {
             />
             <div className="hidden sm:block">
               <h1 className="text-lg font-bold text-foreground">
-                {t("بيت الثقافة العربية", "Arab Cultural House")}
+                {t("بيت تراث العرب", "Arab Cultural House")}
               </h1>
               <p className="text-xs text-muted-foreground">
                 {t("Maison de la culture arabe", "Maison de la culture arabe")}
