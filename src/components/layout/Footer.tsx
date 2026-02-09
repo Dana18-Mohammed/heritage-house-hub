@@ -34,12 +34,14 @@ export function Footer() {
           {/* About Section */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-heritage-gold flex items-center justify-center">
-                <span className="text-foreground font-bold text-xl">بت</span>
-              </div>
+              <img 
+                src="/assets/logo.png" 
+                alt={t("بيت الثقافة العربية", "Arab Cultural House")}
+                className="h-14 w-auto object-contain bg-white/90 rounded-lg p-1"
+              />
               <div>
-                <h3 className="text-lg font-bold">{t("بيت تراث العرب", "Arab Heritage House")}</h3>
-                <p className="text-xs text-primary-foreground/70">{t("Arab Heritage House", "بيت تراث العرب")}</p>
+                <h3 className="text-lg font-bold">{t("بيت الثقافة العربية", "Arab Cultural House")}</h3>
+                <p className="text-xs text-primary-foreground/70">Maison de la culture arabe</p>
               </div>
             </div>
             <p className="text-primary-foreground/80 text-sm leading-relaxed">
@@ -135,7 +137,7 @@ export function Footer() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-primary-foreground/60 text-sm">
-              © {new Date().getFullYear()} {t("بيت تراث العرب. جميع الحقوق محفوظة.", "Arab Heritage House. All rights reserved.")}
+              © {new Date().getFullYear()} {t("بيت الثقافة العربية. جميع الحقوق محفوظة.", "Arab Cultural House. All rights reserved.")}
             </p>
             <div className="flex items-center gap-2 text-primary-foreground/60 text-sm">
               <span>{t("صُنع بـ", "Made with")}</span>

@@ -41,15 +41,17 @@ export function Header() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-hero flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-xl">بت</span>
-            </div>
+            <img 
+              src="/assets/logo.png" 
+              alt={t("بيت الثقافة العربية", "Arab Cultural House")}
+              className="h-12 w-auto object-contain"
+            />
             <div className="hidden sm:block">
               <h1 className="text-lg font-bold text-foreground">
-                {t("بيت تراث العرب", "Arab Heritage House")}
+                {t("بيت الثقافة العربية", "Arab Cultural House")}
               </h1>
               <p className="text-xs text-muted-foreground">
-                {t("Arab Heritage House", "بيت تراث العرب")}
+                {t("Maison de la culture arabe", "Maison de la culture arabe")}
               </p>
             </div>
           </Link>
